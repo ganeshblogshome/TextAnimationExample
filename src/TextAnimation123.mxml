@@ -12,5 +12,5 @@
 			private var txtArr:Array = new Array("My","World","will","GO","to","High","Soon"); 
 		]]>
 	</fx:Script>
-	<local:TextAnimator id="TextAni" textArray="{txtArr}" width="200" height="150" backgroundColor="#336699"/>
+	<local:TextAnimator textArray="{txtArr}" width="200" height="150" backgroundColor="#336699"/>
 </s:Application>
