@@ -13,7 +13,7 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="TextAnimation.mxml"/>
+    <application path="TextAnimation123.mxml"/>
     <application path="TextAnimationExample.mxml"/>
   </applications>
   <modules/>
