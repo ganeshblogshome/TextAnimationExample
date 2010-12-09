@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx"
+		   creationComplete="init();">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flash.utils.getTimer;
+			import flash.utils.setInterval;
+			import flash.utils.setTimeout;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Text;
+			import mx.effects.Blur;
+			import mx.effects.Fade;
+			import mx.effects.Parallel;
+			import mx.events.EffectEvent;
+			private var parShowEff:Parallel = new Parallel();
+			private var parHideEff:Parallel = new Parallel();
+			
+			public var aniDelay:Number = 2000;
+			public var transDelay:Number = 500;
+			
+			private var compCounter:Number = 0;
+			
+			public var textArray:Array = new Array("Welcome", "India", "Tiger", "Kingdom");
+			
+			private var interID:Number;
+			
+			private function init():void
+			{
+				var blurIn:Blur = new Blur();
+				var blurOut:Blur = new Blur();
+				var fadeEff:Fade = new Fade();
+				blurIn.blurXFrom = blurIn.blurYFrom = 8;
+				blurIn.blurXTo = blurIn.blurYTo = 0;
+				
+				blurOut.blurXFrom = blurOut.blurYFrom = 0;
+				blurOut.blurXTo = blurOut.blurYTo = 8;
+				
+				parShowEff.addChild(blurIn);
+				parShowEff.addChild(fadeEff);
+				
+				parHideEff.addChild(blurOut);
+				parHideEff.addChild(fadeEff);
+				
+				parShowEff.duration = parHideEff.duration = transDelay;
+				
+				for(var i:Number =0;i<textArray.length;i++)
+				{
+					var txt:Text = new Text();
+					txt.text = textArray[i];
+					addChild(txt);
+					if(i!=0)
+					{
+						txt.visible = false;
+					}
+					txt.setStyle("fontSize","45");
+					txt.setStyle("showEffect",parShowEff); 
+					txt.setStyle("hideEffect",parHideEff);
+					txt.setStyle("horizontalCenter",0); 
+					txt.setStyle("verticalCenter",0);
+				}
+				setTimeout(doAfter,(transDelay+aniDelay));
+				interID = setInterval(evenGapCall,((transDelay*2)+aniDelay));
+				
+			}
+			private function evenGapCall():void
+			{
+				if(++compCounter == this.numChildren) compCounter = 0;
+				Text(getChildAt(compCounter)).visible = true;
+				//Text(getChildAt(compCounter)).visible = false;
+				setTimeout(doAfter,(transDelay+aniDelay));
+			}
+			private function doAfter():void
+			{
+				Text(getChildAt(compCounter)).visible = false;
+			}
+		]]>
+	</fx:Script>
+</mx:Canvas>
